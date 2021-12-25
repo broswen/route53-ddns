@@ -1,0 +1,34 @@
+service: route53-ddns
+frameworkVersion: "2 || 3"
+
+plugins:
+  - serverless-plugin-typescript
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  timeout: 3
+  memorySize: 128
+  lambdaHashingVersion: "20201221"
+  stage: ${opt:stage, 'dev'}
+  apiGateway:
+    apiKeySourceType: HEADER
+    apiKeys:
+      - ${self:provider.stage}-route53-ddns
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - route53:ChangeResourceRecordSets
+          Resource: ${file(serverless.${self:provider.stage}.yaml):allowedHostedZones}
+
+functions:
+  ddns:
+    handler: src/lambdas/ddns.handler
+    events:
+      - http:
+          private: true
+          path: /{hostedZoneId}/{name}
+          method: post

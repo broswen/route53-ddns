@@ -1,0 +1,21 @@
+{
+  "name": "route53-ddns",
+  "version": "1.0.0",
+  "description": "Simple DDNS using API Gateway, Lambda, and Route53",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-route-53": "^3.45.0",
+    "@aws-sdk/types": "^3.40.0",
+    "@types/aws-lambda": "^8.10.88"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.4",
+    "serverless-plugin-typescript": "^2.1.0",
+    "typescript": "^4.5.4"
+  }
+}
